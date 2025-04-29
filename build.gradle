@@ -1,0 +1,73 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'org.openjfx.javafxplugin' version '0.1.0' apply false
+}
+
+allprojects {
+    group = 'org.notepad'
+    version = '1.0.0'
+
+    repositories {
+        mavenCentral()
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.openjfx.javafxplugin'
+
+    javafx {
+        version = "20"
+        modules = ['javafx.controls', 'javafx.fxml']
+    }
+
+    // dependencies {
+    //     implementation "org.openjfx:javafx-controls:20"
+    //     implementation "org.openjfx:javafx-fxml:20"
+    //     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
+    //     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
+        
+    // }
+
+    test {
+        useJUnitPlatform()
+    }
+}
+
+
+project(':app') {
+    apply plugin: 'application'
+    
+    dependencies {
+        // implementation "org.openjfx:javafx-controls:20"
+        // implementation "org.openjfx:javafx-fxml:20"
+        implementation project(':utilities')
+    }
+
+    application {
+        // mainModule = 'org.notepad.app'
+        mainClass = 'org.notepad.app.App'
+    }
+    
+    sourceSets {
+        main {
+            resources {
+                srcDirs = ['src/main/resources']
+                includes = ['**/*.fxml', '**/*.css']
+            }
+        }
+    }
+}
+
+project(':utilities') {
+    // Add specific utilities configurations if needed
+}
+
+
+java {
+    // This is just a safety check to set the target and source compatibility
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
