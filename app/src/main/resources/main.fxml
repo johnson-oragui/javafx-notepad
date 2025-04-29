@@ -19,6 +19,11 @@
       <MenuItem text="Copy" onAction="#handleCopy" accelerator="Ctrl+C"/>
       <MenuItem text="Paste" onAction="#handlePaste" accelerator="Ctrl+V"/>
     </Menu>
+    <Menu text="View">
+      <MenuItem fx:id="zoomInMenuItem" text="Zoom In (+)"/>
+      <MenuItem fx:id="zoomOutMenuItem" text="Zoom Out (-)"/>
+      <MenuItem fx:id="resetZoomMenuItem" text="Reset Zoom (0)"/>
+    </Menu>
   </MenuBar>
   <TextArea fx:id="textArea" wrapText="true" VBox.vgrow="ALWAYS"/>
 </VBox>
