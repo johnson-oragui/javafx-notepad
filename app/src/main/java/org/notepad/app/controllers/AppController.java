@@ -7,7 +7,12 @@ import java.util.Optional;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.stage.FileChooser;
@@ -17,6 +22,14 @@ public class AppController {
   private File currentFile;
   private Stage primaryStage;
   private Boolean isModified = false;
+
+  private Zoom zoom;
+  @FXML
+  private MenuItem zoomInMenuItem;
+  @FXML
+  private MenuItem zoomOutMenuItem;
+  @FXML
+  private MenuItem resetZoomMenuItem;
   @FXML
   private TextArea textArea;
 
@@ -36,6 +49,38 @@ public class AppController {
   public void initialize() {
     textArea.textProperty().addListener((obs, oldText, newtex) -> {
       setIsModified(true);
+    });
+
+    zoom = new Zoom(textArea);
+    // Set up menu item actions
+    zoomInMenuItem.setOnAction(e -> zoom.handleZoomIn());
+    zoomOutMenuItem.setOnAction(e -> zoom.handleZoomOut());
+    resetZoomMenuItem.setOnAction(e -> zoom.handleResetZoom());
+
+    // Set keyboard shortcuts
+    setupKeyboardShortcuts();
+  }
+
+  private void setupKeyboardShortcuts() {
+    // Menu item accelerators
+    zoomInMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.PLUS, KeyCombination.SHORTCUT_DOWN));
+    zoomOutMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.MINUS, KeyCombination.SHORTCUT_DOWN));
+    resetZoomMenuItem.setAccelerator(new KeyCodeCombination(KeyCode.DIGIT0, KeyCombination.SHORTCUT_DOWN));
+
+    // Direct text area shortcuts
+    textArea.addEventFilter(KeyEvent.KEY_PRESSED, event -> {
+      if (event.isShortcutDown()) {
+        if (event.getCode() == KeyCode.PLUS || event.getCode() == KeyCode.ADD) {
+          zoom.handleZoomIn();
+          event.consume();
+        } else if (event.getCode() == KeyCode.MINUS || event.getCode() == KeyCode.SUBTRACT) {
+          zoom.handleZoomOut();
+          event.consume();
+        } else if (event.getCode() == KeyCode.DIGIT0) {
+          zoom.handleResetZoom();
+          event.consume();
+        }
+      }
     });
   }
 
