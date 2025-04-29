@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.input.*?>
+
+<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" 
+      fx:controller="org.notepad.app.controllers.AppController">
+  <MenuBar>
+    <Menu text="File">
+      <MenuItem text="New" onAction="#handleNew" accelerator="Ctrl+N"/>
+      <MenuItem text="Open" onAction="#handleOpen" accelerator="Ctrl+O"/>
+      <MenuItem text="Save" onAction="#handleSave" accelerator="Ctrl+S"/>
+      <MenuItem text="Save As" onAction="#handleSaveAs" accelerator="Ctrl+Shift+S"/>
+      <MenuItem text="Exit" onAction="#handleExit" accelerator="Ctrl+Q"/>
+    </Menu>
+    <Menu text="Edit">
+      <MenuItem text="Cut" onAction="#handleCut" accelerator="Ctrl+X"/>
+      <MenuItem text="Copy" onAction="#handleCopy" accelerator="Ctrl+C"/>
+      <MenuItem text="Paste" onAction="#handlePaste" accelerator="Ctrl+V"/>
+    </Menu>
+  </MenuBar>
+  <TextArea fx:id="textArea" wrapText="true" VBox.vgrow="ALWAYS"/>
+</VBox>
