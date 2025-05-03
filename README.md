@@ -70,6 +70,11 @@ src/
    - Clean and rebuild project
    - Verify JavaFX is properly installed
 
+
+---
+## DEMO
+(notepad demo)[https://github.com/user-attachments/assets/c92c392a-3730-4e70-aab0-503d61247a15]
+---
 ## Contributing
 
 1. Fork the repository
